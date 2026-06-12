@@ -15,8 +15,14 @@ on:
 # (manually/weekly) running the executable Karate suite against a live server.
 
 env:
-  # main Lab IG dependency — keep in sync with sushi-config.yaml + resolve-lab-package.sh
-  LAB_PKG: zw.fhir.ig.lab#current$lab-dep-snapshot
+  # Main Lab IG dependency, fetched by DIRECT tarball URL rather than
+  # `zw.fhir.ig.lab#current$lab-dep-snapshot`: the package feed maps that
+  # canonical to mohcc, so a version-based ref resolves against mohcc (which
+  # doesn't have this branch) instead of the fork. The direct URL is
+  # unambiguous. Requires pmanko/fhir-zw-lab-ig to be registered with the FHIR
+  # auto-builder so the branch build exists. Switch to zw.fhir.ig.lab#current
+  # once these profiles reach mohcc's default-branch build.
+  LAB_PKG: https://build.fhir.org/ig/pmanko/fhir-zw-lab-ig/branches/lab-dep-snapshot/package.tgz
   CORE_PKG: zw.fhir.ig.core#current
 
 jobs:
