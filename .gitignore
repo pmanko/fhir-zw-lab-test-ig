@@ -1,0 +1,38 @@
+# IG publisher build folders #
+##############################
+temp
+template
+output
+fsh-generated
+/input-cache
+
+# OS generated files #
+######################
+Thumbs.db
+.DS_Store
+.DS_Store?
+**/.index.json
+
+# backup files #
+################
+*.bak
+
+.vscode/
+.idea/
+.idea/*
+
+# emacs #
+#########
+*~
+\#*\#
+.\#*
+.swp
+
+# Karate test kit #
+###################
+karate/karate-*.jar
+karate/target/
+
+# local build log
+publisher-build.log
+Requirements-fromNarrative.json

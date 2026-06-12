@@ -1,0 +1,37 @@
+{
+  "resourceType": "DiagnosticReport",
+  "meta": {
+    "profile": [
+      "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-diagnostic-report"
+    ]
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+          "code": "MB",
+          "display": "Microbiology"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-lab-tests",
+        "code": "LTT0013",
+        "display": "Viral Load Plasma"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/9d480e52-5ae2-4c5d-bebb-1cdb9e3c4683"
+  },
+  "basedOn": [
+    {
+      "reference": "ServiceRequest/REPLACED-AT-RUNTIME"
+    }
+  ]
+}

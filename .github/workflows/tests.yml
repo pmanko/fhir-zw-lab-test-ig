@@ -1,0 +1,95 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # weekly liveness check of the Karate suite against the ZW sandbox
+    - cron: '0 6 * * 1'
+
+# The FHIR auto-builder produces the website + full publisher QA (including
+# validation of the published wire bundles) on every push. CI here covers only
+# what the publisher can't: proving the INVALID payloads still fail, and
+# (manually/weekly) running the executable Karate suite against a live server.
+
+env:
+  # main Lab IG dependency — keep in sync with sushi-config.yaml + resolve-lab-package.sh
+  LAB_PKG: zw.fhir.ig.lab#current$lab-dep-snapshot
+  CORE_PKG: zw.fhir.ig.core#current
+
+jobs:
+  payload-validation:
+    name: Validate test payloads (server-free)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Cache FHIR validator
+        uses: actions/cache@v4
+        with:
+          path: validator_cli.jar
+          key: validator-cli-v1
+
+      - name: Download FHIR validator
+        run: |
+          test -f validator_cli.jar || \
+            curl -fsSL -o validator_cli.jar \
+              https://github.com/hapifhir/org.hl7.fhir.core/releases/latest/download/validator_cli.jar
+
+      - name: Valid wire bundles MUST pass
+        run: |
+          set -e
+          for f in input/resources/Bundle-zw-test-order-wire.json \
+                   input/resources/Bundle-zw-test-report-wire.json; do
+            echo "::group::validate (expect pass) $f"
+            java -jar validator_cli.jar "$f" \
+              -version 4.0.1 -ig "$LAB_PKG" -ig "$CORE_PKG"
+            echo "::endgroup::"
+          done
+
+      - name: Invalid payloads MUST fail
+        run: |
+          check_fails() {
+            local file="$1" profile="$2"
+            echo "::group::validate (expect FAIL) $file"
+            if java -jar validator_cli.jar "$file" \
+                 -version 4.0.1 -ig "$LAB_PKG" -ig "$CORE_PKG" -profile "$profile"; then
+              echo "::error::$file validated clean but should have failed ${profile##*/}"
+              exit 1
+            fi
+            echo "(failed as expected)"
+            echo "::endgroup::"
+          }
+          check_fails karate/data/order-bundle-invalid.json \
+            http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-order-bundle
+          check_fails karate/data/report-bundle-invalid.json \
+            http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-report-bundle
+
+  karate-live:
+    name: Karate suite (live ZW sandbox)
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    continue-on-error: true   # sandbox availability is outside this repo's control
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Run the conformance suite
+        working-directory: karate
+        run: ./run-tests.sh
+      - name: Upload Karate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: karate-reports
+          path: karate/target/karate-reports
+          if-no-files-found: ignore

@@ -1,0 +1,38 @@
+{
+  "resourceType": "Patient",
+  "id": "9d480e52-5ae2-4c5d-bebb-1cdb9e3c4683",
+  "meta": {
+    "profile": [
+      "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-patient"
+    ]
+  },
+  "extension": [
+    {
+      "url": "http://mohcc.gov.zw/fhir/lab/StructureDefinition/date-of-birth-estimated",
+      "valueBoolean": false
+    }
+  ],
+  "identifier": [
+    {
+      "system": "http://mohcc.gov.zw/fhir/lab/identifier/ehr-patient-id",
+      "value": "EHR-ZW-KARATE-FIXED"
+    }
+  ],
+  "name": [
+    {
+      "given": ["Tariro"],
+      "family": "Ncube"
+    }
+  ],
+  "birthDate": "1990-01-15",
+  "gender": "female",
+  "maritalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+        "code": "U",
+        "display": "unmarried"
+      }
+    ]
+  }
+}

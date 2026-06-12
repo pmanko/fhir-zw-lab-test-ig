@@ -1,0 +1,4 @@
+# Enable auto-env through the sdkman_auto_env config
+# See https://sdkman.io/usage#env
+# The IG Publisher and the Karate test kit both need Java 17+
+java=21.0.5-tem

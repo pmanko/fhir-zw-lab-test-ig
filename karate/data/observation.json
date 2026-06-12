@@ -1,0 +1,38 @@
+{
+  "resourceType": "Observation",
+  "meta": {
+    "profile": [
+      "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-result-observation"
+    ]
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "laboratory"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-lab-tests",
+        "code": "LTT0013",
+        "display": "Viral Load Plasma"
+      }
+    ]
+  },
+  "effectiveDateTime": "2024-03-18T14:00:00+02:00",
+  "valueQuantity": {
+    "value": 48,
+    "unit": "copies/mL",
+    "system": "http://unitsofmeasure.org",
+    "code": "/mL"
+  },
+  "method": {
+    "text": "RT-PCR"
+  }
+}

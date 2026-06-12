@@ -1,0 +1,9 @@
+== Suppressed Messages ==
+
+# Add warning/information messages here once confirmed harmless, with a comment
+# justifying each. See https://github.com/FHIR/sample-ig/blob/master/input/ignoreWarnings.txt
+#
+# The published wire bundles are real on-the-wire transactions, so a few
+# example-oriented conventions don't apply (uuid fullUrls, server-assigned ids,
+# the appended conditional-create context entries that don't match a profile
+# slice). Add specific patterns here if they surface as warnings on the build.

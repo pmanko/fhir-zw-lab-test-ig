@@ -1,0 +1,13 @@
+{
+  "resourceType": "ServiceRequest",
+  "meta": {
+    "profile": [
+      "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-service-request"
+    ]
+  },
+  "status": "active",
+  "intent": "order",
+  "subject": {
+    "reference": "Patient/9d480e52-5ae2-4c5d-bebb-1cdb9e3c4683"
+  }
+}

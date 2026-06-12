@@ -1,0 +1,265 @@
+{
+  "resourceType": "Bundle",
+  "meta": {
+    "profile": [
+      "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-order-bundle"
+    ]
+  },
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0001",
+      "resource": {
+        "resourceType": "Task",
+        "meta": {
+          "profile": [
+            "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-task"
+          ]
+        },
+        "basedOn": [
+          {
+            "reference": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0002"
+          }
+        ],
+        "status": "requested",
+        "intent": "order",
+        "for": {
+          "reference": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0003"
+        },
+        "authoredOn": "2024-03-15T08:00:00+02:00",
+        "location": {
+          "reference": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0005"
+        },
+        "restriction": {
+          "recipient": [
+            {
+              "reference": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0006"
+            }
+          ]
+        },
+        "input": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-task-input-type",
+                  "code": "pregnant"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-task-input-type",
+                  "code": "breastfeeding"
+                }
+              ]
+            },
+            "valueBoolean": false
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-task-input-type",
+                  "code": "art-start-date"
+                }
+              ]
+            },
+            "valueDate": "2019-07-01"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-task-input-type",
+                  "code": "regimen"
+                }
+              ]
+            },
+            "valueString": "TDF/3TC/DTG"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "Task"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0002",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "meta": {
+          "profile": [
+            "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-service-request"
+          ]
+        },
+        "status": "active",
+        "intent": "order",
+        "subject": {
+          "reference": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0003"
+        },
+        "authoredOn": "2024-03-15T08:00:00+02:00",
+        "locationReference": [
+          {
+            "reference": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0005"
+          }
+        ],
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-reason-for-test",
+                "code": "routine",
+                "display": "Routine"
+              }
+            ]
+          }
+        ],
+        "specimen": [
+          {
+            "reference": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0004"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "ServiceRequest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0003",
+      "resource": {
+        "resourceType": "Patient",
+        "meta": {
+          "profile": [
+            "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-patient"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://mohcc.gov.zw/fhir/lab/StructureDefinition/date-of-birth-estimated",
+            "valueBoolean": false
+          }
+        ],
+        "name": [
+          {
+            "family": "Moyo",
+            "given": [
+              "Rutendo"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1988-04-15",
+        "maritalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+              "code": "M",
+              "display": "Married"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Patient"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0004",
+      "resource": {
+        "resourceType": "Specimen",
+        "meta": {
+          "profile": [
+            "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-specimen"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://mohcc.gov.zw/fhir/lab/identifier/client-sample-id",
+            "value": "ZW-SPEC-2024-00456"
+          }
+        ],
+        "status": "available",
+        "type": {
+          "coding": [
+            {
+              "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-sample-types",
+              "code": "LST006",
+              "display": "Blood Plasma"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0003"
+        },
+        "collection": {
+          "collectedDateTime": "2024-03-15T08:30:00+02:00"
+        }
+      },
+      "request": {
+        "method": "POST",
+        "url": "Specimen"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0005",
+      "resource": {
+        "resourceType": "Location",
+        "meta": {
+          "profile": [
+            "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-facility"
+          ]
+        },
+        "status": "active",
+        "name": "Harare City Health Clinic"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Location",
+        "ifNoneExist": "name=Harare%20City%20Health%20Clinic"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5a3952e2-1c1a-4a6b-9c5d-0b6e9a3e0006",
+      "resource": {
+        "resourceType": "Organization",
+        "meta": {
+          "profile": [
+            "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-laboratory"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-laboratories",
+            "value": "ZWLPAR001"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                "code": "other",
+                "display": "Other"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "name": "National Virology Laboratory"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Organization",
+        "ifNoneExist": "identifier=http%3A%2F%2Fmohcc.gov.zw%2Ffhir%2Flab%2FCodeSystem%2Fzw-laboratories%7CZWLPAR001"
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "resourceType": "DiagnosticReport",
+  "status": "PLACEHOLDER-invalid-status-value",
+  "code": {
+    "text": "PLACEHOLDER"
+  }
+}

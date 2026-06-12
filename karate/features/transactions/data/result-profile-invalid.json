@@ -1,0 +1,21 @@
+{
+  "resourceType": "DiagnosticReport",
+  "meta": {
+    "profile": [
+      "http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-diagnostic-report"
+    ]
+  },
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://mohcc.gov.zw/fhir/lab/CodeSystem/zw-lab-tests",
+        "code": "LTT0013",
+        "display": "Viral Load Plasma"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/9d480e52-5ae2-4c5d-bebb-1cdb9e3c4683"
+  }
+}

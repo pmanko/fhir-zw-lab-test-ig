@@ -1,0 +1,67 @@
+id: zw.fhir.ig.lab.test
+canonical: http://mohcc.gov.zw/fhir/lab/test
+name: ZWLabTest
+title: Zimbabwe Lab IG Conformance Test Kit
+description: Executable actor conformance test kit (Karate) and validated test payloads for the Zimbabwe Laboratory Ordering and Results IG (zw.fhir.ig.lab).
+status: draft # draft | active | retired | unknown
+experimental: true
+version: 0.1.0
+fhirVersion: 4.0.1 # https://www.hl7.org/fhir/valueset-FHIR-version.html
+copyrightYear: 2025+
+releaseLabel: ci-build # ci-build | draft | qa-preview | ballot | trial-use | release | update | normative+trial-use
+license: CC0-1.0 # https://www.hl7.org/fhir/valueset-spdx-license.html
+jurisdiction: http://unstats.un.org/unsd/methods/m49/m49.htm#716 "Zimbabwe (ZWE)" # https://www.hl7.org/fhir/valueset-jurisdiction.html
+publisher:
+  name: MOH Zimbabwe
+  url: http://mohcc.org.zw
+
+# This IG validates against the main Lab IG's profiles. The Lab IG is not yet
+# published on mohcc's default-branch auto-build (the order/report bundle
+# profiles, actors and requirements are still on the actor-test-kit PR), so we
+# pin to the fork's branch build until that content reaches mohcc main. Switch
+# to `current` then (see the split plan / README). `current$branch` resolves
+# from the last successful build.fhir.org build of that branch.
+dependencies:
+  zw.fhir.ig.lab:
+    id: lab
+    version: current$lab-dep-snapshot
+  zw.fhir.ig.core:
+    id: core
+    version: current
+
+# Valid wire payloads (as the test kit actually submits them) published as
+# examples and profile-validated against the main IG on every build. The
+# intentionally-invalid variants live in karate/data/ only — outside input/,
+# so the publisher never sees them (it would fail the build on a bad example).
+resources:
+  Bundle/zw-test-order-wire:
+    name: Wire-format lab order transaction
+    description: The order transaction Bundle exactly as the conformance test kit POSTs it to the Lab Order Repository (national codes only, conditional-create context resources, urn:uuid wiring).
+    exampleCanonical: http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-order-bundle
+  Bundle/zw-test-report-wire:
+    name: Wire-format lab report document
+    description: The report document Bundle exactly as the conformance test kit submits it to the Lab Result Repository.
+    exampleCanonical: http://mohcc.gov.zw/fhir/lab/StructureDefinition/zw-lab-report-bundle
+
+pages:
+  index.md:
+    title: Overview
+  running.md:
+    title: Running the Kit
+  simulators.md:
+    title: Interceptors & Simulators
+  downloads.md:
+    title: Downloads
+  about.md:
+    title: About
+
+menu:
+  Overview: index.html
+  Running the Kit: running.html
+  Interceptors & Simulators: simulators.html
+  Artifacts: artifacts.html
+  Downloads: downloads.html
+  About: about.html
+
+parameters:
+  pin-canonicals: pin-multiples
